@@ -1,4 +1,5 @@
 import numpy as np, time, json
+from pathlib import Path
 
 def sech2(x):
     t=np.tanh(x); return 1-t*t
@@ -52,7 +53,10 @@ out=[]
 for idx,h in enumerate(hs):
     r=triple(h, seed0+900+idx)
     print(r, flush=True); out.append(r)
-with open('/mnt/data/stepsize_halving_check.json','w') as f: json.dump(out,f,indent=2)
+output_path = Path(__file__).resolve().with_name('stepsize_halving_check.json')
+with output_path.open('w', encoding='utf-8') as f:
+    json.dump(out, f, indent=2)
+print(f'Wrote {output_path}')
 # slopes
 cm=np.array([r['coarse_vs_5e-4'][0] for r in out]); cf=np.array([r['coarse_vs_2p5e-4'][0] for r in out]); hs=np.array(hs)
 print('slope medium-ref',np.polyfit(np.log(hs),np.log(cm),1)[0])
