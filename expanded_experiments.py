@@ -574,4 +574,4 @@ def make_all(root: Path) -> None:
 
 
 if __name__ == "__main__":
-    make_all(Path(__file__).resolve().parents[1])
+    make_all(Path(__file__).resolve().parent)
